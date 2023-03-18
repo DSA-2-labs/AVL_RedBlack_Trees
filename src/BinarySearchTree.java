@@ -24,7 +24,21 @@ public interface BinarySearchTree<K> {
      * @return true if it is found in the tree
      * and false otherwise
      */
-    boolean search (K key);
+    boolean search (K key)
+    {
+        boolean found=false;
+        Node temp=root;
+        while(temp!=null)
+        {
+            if(temp.value==key)
+                found=true;
+            else if(temp.value>key)
+                temp=temp.left;
+            else
+                temp=temp.right;
+        }
+        return found;
+    }
 
     /**
      * @return the number of keys in the tree
