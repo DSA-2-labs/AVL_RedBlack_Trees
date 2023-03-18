@@ -11,7 +11,18 @@ public abstract class AbstractBST<K> implements BinarySearchTree<K> {
 
     @Override
     public boolean search(K key) {
-        return false;
+        boolean found=false;
+        Node temp=root;
+        while(temp!=null)
+        {
+            if(temp.value==key)
+                found=true;
+            else if(temp.value>key)
+                temp=temp.left;
+            else
+                temp=temp.right;
+        }
+        return found;
     }
 
     @Override
