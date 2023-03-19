@@ -3,7 +3,8 @@ import static java.awt.Color.*;
 public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K> {
 
     RBNode<K> root;
-    int size;
+    private int size;
+    private boolean deleteFlag = true;
 
     RedBlackTree() {
         this.size = 0;
@@ -15,10 +16,10 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         return insert(root, key) != null;
     }
 
-    private RBNode insert(RBNode node, K key) {
+    private RBNode<K> insert(RBNode<K> node, K key) {
         if (node == null) {
             size++;
-            RBNode newNode = new RBNode(key);
+            RBNode<K> newNode = new RBNode<>(key);
             if (size == 1) {
                 newNode.color = BLACK;
                 root = newNode;
@@ -26,23 +27,21 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             return newNode;
         }
         int cmp = node.value.compareTo(key);
-        RBNode newNode = null;
+        RBNode<K> newNode = null;
         if (cmp > 0) {
             if (node.left != null)
-                return insert((RBNode) node.left, key);
-            newNode = new RBNode(key);
+                return insert(node.left, key);
+            newNode = new RBNode<>(key);
             node.left = newNode;
             newNode.parent = node;
             size++;
         } else if (cmp < 0) {
             if (node.right != null)
-                return insert((RBNode) node.right, key);
-            newNode = new RBNode(key);
+                return insert(node.right, key);
+            newNode = new RBNode<>(key);
             node.right = newNode;
             newNode.parent = node;
             size++;
-        }
-        else { // key already exists
         }
         fixInput(newNode);
         return newNode;
@@ -50,13 +49,57 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     @Override
     public boolean delete(K key) {
-        return false;
+        root = delete(root, key);
+        if (deleteFlag)
+            size--;
+        return deleteFlag;
+    }
+
+    private RBNode<K> delete(RBNode<K> node, K key) {
+        if (node == null) {
+            deleteFlag = false;
+            return node;
+        }
+        int cmp = node.value.compareTo(key);
+        if (cmp > 0) {
+            node.left = delete(node.left, key);
+        } else if (cmp < 0) {
+            node.right = delete(node.right, key);
+        }
+        else {
+            deleteFlag = true;
+            if ((node.left == null) || (node.right == null)) {
+                RBNode<K> temp = null;
+                if (temp == node.left)
+                    temp = node.right;
+                else
+                    temp = node.left;
+                if (temp == null) {
+                    temp = node;
+                    node = null;
+                } else {
+                    temp.parent = node.parent;
+                    node = temp;
+                }
+            } else {
+                RBNode<K> temp = minvalue(node.right);
+                node.value = temp.value;
+                node.right = delete(node.right, temp.value);
+            }
+        }
+        return node;
+    }
+
+    private RBNode<K> minvalue(RBNode<K> right) {
+        RBNode<K> current = right;
+        while (current.left != null)
+            current = current.left;
+        return current;
     }
 
     @Override
     public boolean search(K key) {
-        boolean found = false;
-        RBNode temp = root;
+        RBNode<K> temp = root;
         while(temp != null)
         {
             int cmp = temp.value.compareTo(key);
@@ -80,8 +123,8 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         return 0;
     }
 
-    private void rotateleft(RBNode node){
-        RBNode x = (RBNode) node.right;
+    private void rotateleft(RBNode<K> node){
+        RBNode<K> x = node.right;
         node.right = x.left;
         if(x.left != null){
             x.left.parent = node;
@@ -97,8 +140,8 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         node.parent = x;
         x.left = node ;
     }
-    private  void rotateright(RBNode node){
-        RBNode x = (RBNode) node.left;
+    private  void rotateright(RBNode<K> node){
+        RBNode<K> x = node.left;
         node.left = x.right;
         if(x.right != null){
             x.right.parent = node;
@@ -114,10 +157,10 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         node.parent = x;
         x.right = node;
     }
-    private void fixInput(RBNode node){
+    private void fixInput(RBNode<K> node){
         if(node != null && node != root && node.parent.color == RED ) {
             if (node.parent == node.parent.parent.left) {
-                RBNode uncle = node.parent.parent.right;
+                RBNode<K> uncle = node.parent.parent.right;
                 if (uncle != null && uncle.color == RED){
                     node.parent.color = BLACK;
                     uncle.color = BLACK;
@@ -133,7 +176,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                     rotateright(node.parent.parent);
                 }
             }else{
-                RBNode uncle = node.parent.parent.left;
+                RBNode<K> uncle = node.parent.parent.left;
                 if(uncle != null && uncle.color == RED){
                     node.parent.color = BLACK;
                     uncle.color = BLACK;
@@ -153,7 +196,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         root.color = BLACK;
     }
 
-    public void test (RBNode node) {
+    public void test (RBNode<K> node) {
         if (node == null)
             return;
         System.out.print("val: " + node.value + " ");
@@ -168,8 +211,8 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
 
         System.out.println(node.color);
-        test((RBNode) node.left);
-        test((RBNode) node.right);
+        test(node.left);
+        test(node.right);
     }
 
 }

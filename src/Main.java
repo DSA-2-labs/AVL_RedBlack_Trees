@@ -7,8 +7,10 @@ public class Main {
         System.out.println(t.insert(31));
         System.out.println(t.insert(12));
         System.out.println(t.insert(19));
-        System.out.println(t.insert(31));
         System.out.println(t.insert(8));
+        System.out.println(t.delete(38));
+        System.out.println(t.delete(38));
         t.test(t.root);
+        System.out.println(t.root.value);
     }
 }
