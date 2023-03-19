@@ -1,7 +1,8 @@
 public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     AVLNode<K> root;
     int size;
-    AVLTree(){
+
+    AVLTree() {
         root = null;
         size=0;
     }
@@ -21,36 +22,35 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
             return root;
         }
         if (data.compareTo(root.value) < 0){
-            root.left = insertrec((AVLNode<K>) root.left, data);
+            root.left = insertrec(root.left, data);
         }
         else if (data.compareTo(root.value) > 0){
-            root.right = insertrec((AVLNode<K>) root.right, data);
+            root.right = insertrec(root.right, data);
         }
         updateheight(root);
         return applybalance(root);
-
     }
 
     private AVLNode<K> applybalance(AVLNode<K> root) {
         int balance = getbalance(root);
-        if (balance > 1 && getbalance((AVLNode<K>) root.left) >= 0) //LL
+        if (balance > 1 && getbalance(root.left) >= 0) //LL
             return rightrotate(root);
-        if (balance > 1 && getbalance((AVLNode<K>) root.left) < 0) { //LR
-            root.left = leftrotate((AVLNode<K>) root.left);
+        if (balance > 1 && getbalance(root.left) < 0) { //LR
+            root.left = leftrotate(root.left);
             return rightrotate(root);
         }
-        if (balance < -1 && getbalance((AVLNode<K>) root.right) <= 0)//RR
+        if (balance < -1 && getbalance(root.right) <= 0)//RR
             return leftrotate(root);
-        if (balance < -1 && getbalance((AVLNode<K>) root.right) > 0) {//RL
-            root.right = rightrotate((AVLNode<K>) root.right);
+        if (balance < -1 && getbalance(root.right) > 0) {//RL
+            root.right = rightrotate(root.right);
             return leftrotate(root);
         }
         return root;
     }
 
     private AVLNode<K> leftrotate(AVLNode<K> left) {
-        AVLNode<K> right = (AVLNode<K>) left.right;
-        AVLNode<K> rightleft = (AVLNode<K>) right.left;
+        AVLNode<K> right = left.right;
+        AVLNode<K> rightleft = right.left;
         right.left = left;
         left.right = rightleft;
         updateheight(left);
@@ -59,8 +59,8 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     }
 
     private AVLNode<K> rightrotate(AVLNode<K> root) {
-        AVLNode<K> left = (AVLNode<K>) root.left;
-        AVLNode<K> leftright = (AVLNode<K>) left.right;
+        AVLNode<K> left = root.left;
+        AVLNode<K> leftright = left.right;
         left.right = root;
         root.left = leftright;
         updateheight(root);
@@ -71,7 +71,7 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     private int getbalance(AVLNode<K> root) {
         if (root == null)
             return 0;
-        return height((AVLNode<K>) root.left) - height((AVLNode<K>) root.right);
+        return height(root.left) - height(root.right);
     }
 
     int height(AVLNode<K> node){
@@ -81,7 +81,7 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         return node.height;
     }
     private void updateheight(AVLNode<K> root) {
-        root.height = 1 + Math.max(height((AVLNode<K>) root.left), height((AVLNode<K>) root.right));
+        root.height = 1 + Math.max(height(root.left), height(root.right));
     }
 
     @Override
@@ -97,44 +97,43 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         if (root == null)
             return root;
         if (key.compareTo(root.value) < 0)
-            root.left = deleterec((AVLNode<K>) root.left, key);
+            root.left = deleterec(root.left, key);
         else if (key.compareTo(root.value) > 0)
-            root.right = deleterec((AVLNode<K>) root.right, key);
+            root.right = deleterec(root.right, key);
         else {
             if ((root.left == null) || (root.right == null)) {
                 AVLNode<K> temp = null;
                 if (temp == root.left)
-                    temp = (AVLNode<K>) root.right;
+                    temp = root.right;
                 else
-                    temp = (AVLNode<K>) root.left;
+                    temp = root.left;
                 if (temp == null) {
                     temp = root;
                     root = null;
                 } else
                     root = temp;
             } else {
-                AVLNode<K> temp = minvalue((AVLNode<K>) root.right);
+                AVLNode<K> temp = minvalue(root.right);
                 root.value = temp.value;
-                root.right = deleterec((AVLNode<K>) root.right, temp.value);
+                root.right = deleterec(root.right, temp.value);
             }
         }
         if (root == null)
             return root;
         updateheight(root);
         return applybalance(root);
-
     }
 
     private AVLNode<K> minvalue(AVLNode<K> right) {
         AVLNode<K> current = right;
         while (current.left != null)
-            current = (AVLNode<K>) current.left;
+            current = current.left;
         return current;
     }
     private AVLNode<K> maxvalue(AVLNode<K> right) {
         AVLNode<K> current = right;
         while (current.right != null)
-            current = (AVLNode<K>) current.right;
+            current = current.right;
         return current;
     }
 
@@ -147,9 +146,9 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
             if(cmp == 0)
                 return true;
             else if(cmp > 0)
-                temp = (AVLNode<K>) temp.right;
+                temp = temp.right;
             else
-                temp = (AVLNode<K>) temp.left;
+                temp = temp.left;
         }
         return false;
     }
@@ -163,6 +162,4 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     public int height() {
         return root.height;
     }
-
-
 }

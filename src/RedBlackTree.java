@@ -1,47 +1,51 @@
-import java.awt.*;
+import static java.awt.Color.BLACK;
+import static java.awt.Color.RED;
 
-public class RedBlackTree<K extends Comparable<K>> extends AbstractBST<K> {
+public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K> {
+
+    RBNode<K> root;
+    int size;
+
+    RedBlackTree() {
+        this.size = 0;
+        this.root = null;
+    }
 
     @Override
     public boolean insert(K key) {
-        if (insert(root, key) == null)
-            return false;
-        return true;
+        return insert(root, key) != null;
     }
 
-    private RBNode insert(Node<K> node, K key) {
+    private RBNode insert(RBNode node, K key) {
         if (node == null) {
             size++;
-            Node newNode = new RBNode(key);
+            RBNode newNode = new RBNode(key);
             if (size == 1) {
-                ((RBNode<K>) newNode).color = Color.BLACK;
+                newNode.color = BLACK;
                 root = newNode;
             }
-            return new RBNode(key);
+            return newNode;
         }
-        String curVal = String.valueOf(node.value);
-        String val = String.valueOf(key);
         int cmp = node.value.compareTo(key);
-
-        Node newNode = null;
+        RBNode newNode = null;
         if (cmp > 0) {
             if (node.left != null)
-                return insert(node.left, key);
+                return insert((RBNode) node.left, key);
             newNode = new RBNode(key);
             node.left = newNode;
-            ((RBNode<K>) newNode).parent = (RBNode<K>)node;
+            newNode.parent = node;
             size++;
         } else if (cmp < 0) {
             if (node.right != null)
-                return insert(node.right, key);
+                return insert((RBNode) node.right, key);
             newNode = new RBNode(key);
             node.right = newNode;
-            ((RBNode<K>) newNode).parent = (RBNode<K>)node;
+            newNode.parent = node;
             size++;
         }
         else { // key already exists
         }
-        return (RBNode) newNode;
+        return newNode;
     }
 
     @Override
@@ -49,19 +53,46 @@ public class RedBlackTree<K extends Comparable<K>> extends AbstractBST<K> {
         return false;
     }
 
+    @Override
+    public boolean search(K key) {
+        boolean found = false;
+        RBNode temp = root;
+        while(temp != null)
+        {
+            int cmp = temp.value.compareTo(key);
+            if(cmp == 0)
+                return true;
+            else if(cmp > 0)
+                temp = temp.left;
+            else
+                temp = temp.right;
+        }
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public int height() {
+        return 0;
+    }
+
     private void rotateleft(RBNode node){
         RBNode x = (RBNode) node.right;
         node.right = x.left;
         x.left = node ;
         x.color = node.color;
-        node.color = Color.RED;
+        node.color = RED;
     }
     private  void rotateright(RBNode node){
         RBNode x = (RBNode) node.left;
         node.left = x.right;
         x.right = node;
         x.color = node.color;
-        node.color = Color.RED;
+        node.color = RED;
 
     }
 
