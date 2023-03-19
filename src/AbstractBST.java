@@ -32,7 +32,10 @@ public abstract class AbstractBST<K extends Comparable<K>> implements BinarySear
     }
 
     @Override
-    public int height() {
-        return 0;
+    public int height(Node <K> N) {
+        if(N==null)
+            return -1;
+        
+        return 1+Math.max(height(N.left),height(N.right));
     }
 }
