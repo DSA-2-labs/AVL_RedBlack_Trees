@@ -11,18 +11,19 @@ public abstract class AbstractBST<K extends Comparable<K>> implements BinarySear
 
     @Override
     public boolean search(K key) {
-        boolean found=false;
-        Node temp=root;
-        while(temp!=null)
+        boolean found = false;
+        Node temp = root;
+        while(temp != null)
         {
-            if(temp.compareTo(key)==0)
-                {found=true; break;}
-            else if(temp.compareTo(key)>0)
-                temp=temp.left;
+            int cmp = temp.value.compareTo(key);
+            if(cmp == 0)
+                return true;
+            else if(cmp > 0)
+                temp = temp.left;
             else
-                temp=temp.right;
+                temp = temp.right;
         }
-        return found;
+        return false;
     }
 
     @Override

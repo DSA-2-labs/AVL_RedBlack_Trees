@@ -1,4 +1,4 @@
-public abstract class Node<K> implements Comparable<K>{
+public abstract class Node<K extends Comparable<K>> {
     public K value;
     public Node<K> left;
     public Node<K> right;
