@@ -1,5 +1,4 @@
-import static java.awt.Color.BLACK;
-import static java.awt.Color.RED;
+import static java.awt.Color.*;
 
 public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K> {
 
@@ -45,6 +44,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
         else { // key already exists
         }
+        fixInput(newNode);
         return newNode;
     }
 
@@ -115,7 +115,42 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         x.right = node;
     }
     private void fixInput(RBNode node){
-
+        if(node != null && node != root && node.parent.color == RED ) {
+            if (node.parent == node.parent.parent.left) {
+                RBNode uncle = node.parent.parent.right;
+                if (uncle != null && uncle.color == RED){
+                    node.parent.color = BLACK;
+                    uncle.color = BLACK;
+                    node.parent.parent.color = RED;
+                    fixInput(node);
+                }else{
+                    if(node == node.parent.right){ //LR
+                        node = node.parent;
+                        rotateleft(node);
+                    }
+                    node.parent.color = BLACK;
+                    node.parent.parent.color = RED;
+                    rotateright(node.parent.parent);
+                }
+            }else{
+                RBNode uncle = node.parent.parent.left;
+                if(uncle != null && uncle.color == RED){
+                    node.parent.color = BLACK;
+                    uncle.color = BLACK;
+                    node.parent.parent.color = RED;
+                    fixInput(node);
+                }else{
+                    if(node == node.parent.left){ //RL
+                        node = node.parent;
+                        rotateright(node);
+                    }
+                    node.parent.color = BLACK;
+                    node.parent.parent.color = RED;
+                    rotateleft(node.parent.parent);
+                }
+            }
+        }
+        root.color = BLACK;
     }
 
     public void test (RBNode node) {
