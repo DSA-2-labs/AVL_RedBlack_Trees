@@ -15,9 +15,9 @@ public abstract class AbstractBST<K> implements BinarySearchTree<K> {
         Node temp=root;
         while(temp!=null)
         {
-            if(temp.value==key)
-                found=true;
-            else if(temp.value>key)
+            if(temp.compareTo(key)==0)
+                {found=true; break;}
+            else if(temp.compareTo(key)>0)
                 temp=temp.left;
             else
                 temp=temp.right;
