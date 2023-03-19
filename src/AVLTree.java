@@ -1,4 +1,4 @@
-public class AVLTree<K> extends AbstractBST<K> {
+public class AVLTree<K extends Comparable<K>> extends AbstractBST<K> {
 
     @Override
     public boolean insert(K key) {

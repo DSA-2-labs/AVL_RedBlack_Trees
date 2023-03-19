@@ -1,4 +1,4 @@
-public interface BinarySearchTree<K> {
+public interface BinarySearchTree<K extends Comparable<K>> {
 
     /**
      * takes a key and inserts it

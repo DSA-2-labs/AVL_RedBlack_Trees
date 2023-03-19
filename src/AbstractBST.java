@@ -1,4 +1,4 @@
-public abstract class AbstractBST<K> implements BinarySearchTree<K> {
+public abstract class AbstractBST<K extends Comparable<K>> implements BinarySearchTree<K> {
 
     Node<K> root;
     int size = 0;
@@ -17,8 +17,8 @@ public abstract class AbstractBST<K> implements BinarySearchTree<K> {
         {
             if(temp.value==key)
                 found=true;
-            else if(temp.value>key)
-                temp=temp.left;
+//            else if(temp.value>key)
+//                temp=temp.left;
             else
                 temp=temp.right;
         }
