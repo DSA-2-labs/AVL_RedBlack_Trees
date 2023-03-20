@@ -143,9 +143,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     private void rotateleft(RBNode<K> node){
         RBNode<K> x = node.right;
         node.right = x.left;
-        if(x.left != null){
-            x.left.parent = node;
-        }
+        x.left.parent = node;
         x.parent = node.parent;
         if(node.parent == null){
             root = x;
@@ -160,9 +158,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     private  void rotateright(RBNode<K> node){
         RBNode<K> x = node.left;
         node.left = x.right;
-        if(x.right != null){
-            x.right.parent = node;
-        }
+        x.right.parent = node;
         x.parent = node.parent;
         if(node.parent == null){
             root = x;
