@@ -142,6 +142,14 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         else
             deleteCase2(doubleBlack);
     }
+
+    private void deleteCase5(RBNode<K> doubleBlack){      //sibling Black , 2 child black
+        RBNode w = getSibling(doubleBlack);
+        if(w.right.color == BLACK && w.left.right.color == BLACK){
+            w.color = BLACK;
+            deleteCase1(doubleBlack);
+        }
+    }
     private RBNode<K> minvalue(RBNode<K> right) {
         RBNode<K> current = right;
         while (current.left != null)
