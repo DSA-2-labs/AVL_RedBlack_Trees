@@ -8,15 +8,31 @@ public class RBNode<K extends Comparable<K>> {
     public K value;
     public RBNode<K> left;
     public RBNode<K> right;
+    private boolean isNull;
     public int height;
     public Color color;
     public RBNode parent;
 
     RBNode(K value) {
+        this.isNull = false;
         this.value = value;
-        this.left=null;
-        this.right=null;
+        this.left = createNullLeaf();
+        this.right = createNullLeaf();
         this.height = 0;
         this.color = RED;
+    }
+
+    RBNode () {
+    }
+
+    private RBNode<K> createNullLeaf () {
+        RBNode<K> node = new RBNode<>();
+        node.isNull = true;
+        node.color = BLACK;
+        return node;
+    }
+
+    public boolean isNullLeaf () {
+        return this.isNull;
     }
 }
