@@ -152,10 +152,9 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     private void deleteCase3(RBNode<K> doubleBlack){  //sibling Black , 2 child black
         RBNode w = getSibling(doubleBlack);
-        if(w.right.color == BLACK && w.left.right.color == BLACK){
-            w.color = BLACK;
-            deleteCase1(doubleBlack);
-        }
+        w.color = RED;
+        deleteCase1(doubleBlack.parent);
+
     }
     private void deleteCase4(RBNode<K> doubleBlack)
     {
