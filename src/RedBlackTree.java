@@ -172,7 +172,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
         RBNode temp=getSibling(doubleBlack);
         if((temp.right.isNullLeaf()||temp.right.color==BLACK)&&((temp.left.isNullLeaf()||temp.left.color==BLACK)))//children are black or null
-            deleteCase1(doubleBlack);
+            deleteCase3(doubleBlack);
         else
             deleteCase2(doubleBlack);
     }
