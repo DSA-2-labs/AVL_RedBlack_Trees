@@ -45,7 +45,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             newNode.parent = node;
             size++;
         }
-//        fixInput(newNode);
+        fixInput(newNode);
         return newNode;
     }
 
