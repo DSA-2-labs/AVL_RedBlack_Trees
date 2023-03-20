@@ -121,9 +121,43 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         deleteCase2(doubleBlack);
     }
 
+    // case 2: sibling is black and has red child
     private void deleteCase2(RBNode<K> doubleBlack) {
+        RBNode<K> s = getSibling(doubleBlack);
+        if (s.color == BLACK) {
+            if (s == s.parent.right && s.right.color == RED) { //RR
+                s.right.color = BLACK;
+                rotateleft(s);
+            }
+            else if (s == s.parent.right && s.left.color == RED) { //RL
+                rotateright(s.left);
+                deleteCase2(doubleBlack);
+            }
+            else if (s == s.parent.left && s.left.color == RED) { //LL
+                s.left.color = BLACK;
+                rotateright(s);
+            }
+            else if (s == s.parent.left && s.right.color == RED){ //LR
+                rotateleft(s.right);
+                deleteCase2(doubleBlack);
+            }
+            else {
+                deleteCase3(doubleBlack);
+            }
+        }
+        else {
+            deleteCase4(doubleBlack);
+        }
     }
-    private void deleteCase3(RBNode<K> doubleBlack)
+
+    private void deleteCase3(RBNode<K> doubleBlack){  //sibling Black , 2 child black
+        RBNode w = getSibling(doubleBlack);
+        if(w.right.color == BLACK && w.left.right.color == BLACK){
+            w.color = BLACK;
+            deleteCase1(doubleBlack);
+        }
+    }
+    private void deleteCase4(RBNode<K> doubleBlack)
     {
         RBNode s=getSibling(doubleBlack);
         s.parent.color=RED;
@@ -143,13 +177,6 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             deleteCase2(doubleBlack);
     }
 
-    private void deleteCase5(RBNode<K> doubleBlack){      //sibling Black , 2 child black
-        RBNode w = getSibling(doubleBlack);
-        if(w.right.color == BLACK && w.left.right.color == BLACK){
-            w.color = BLACK;
-            deleteCase1(doubleBlack);
-        }
-    }
     private RBNode<K> minvalue(RBNode<K> right) {
         RBNode<K> current = right;
         while (current.left != null)
