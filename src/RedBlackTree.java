@@ -1,3 +1,5 @@
+import java.awt.*;
+
 import static java.awt.Color.*;
 
 public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K> {
@@ -17,7 +19,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     }
 
     private RBNode<K> insert(RBNode<K> node, K key) {
-        if (node == null) {
+        if (node == null || node.isNullLeaf()) {
             size++;
             RBNode<K> newNode = new RBNode<>(key);
             if (size == 1) {
@@ -29,21 +31,21 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         int cmp = node.value.compareTo(key);
         RBNode<K> newNode = null;
         if (cmp > 0) {
-            if (node.left != null)
+            if (node.left != null && !node.left.isNullLeaf())
                 return insert(node.left, key);
             newNode = new RBNode<>(key);
             node.left = newNode;
             newNode.parent = node;
             size++;
         } else if (cmp < 0) {
-            if (node.right != null)
+            if (node.right != null && !node.right.isNullLeaf())
                 return insert(node.right, key);
             newNode = new RBNode<>(key);
             node.right = newNode;
             newNode.parent = node;
             size++;
         }
-        fixInput(newNode);
+//        fixInput(newNode);
         return newNode;
     }
 
@@ -56,7 +58,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     }
 
     private RBNode<K> delete(RBNode<K> node, K key) {
-        if (node == null) {
+        if (node == null || node.isNullLeaf()) {
             deleteFlag = false;
             return node;
         }
@@ -68,18 +70,29 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
         else {
             deleteFlag = true;
-            if ((node.left == null) || (node.right == null)) {
-                RBNode<K> temp = null;
-                if (temp == node.left)
-                    temp = node.right;
-                else
-                    temp = node.left;
-                if (temp == null) {
-                    temp = node;
-                    node = null;
-                } else {
+            if ((node.left.isNullLeaf()) || (node.right.isNullLeaf())) {
+                RBNode<K> temp = node.right.isNullLeaf() ? node.left : node.right;
+//                if (temp == null) {
+//                    temp = node;
+//                    node = null;
+//                } else {
                     temp.parent = node.parent;
+                    if (node == node.parent.left) {
+                        node.parent.left = temp;
+                    }
+                    else {
+                        node.parent.right = temp;
+                    }
+                    Color nodeCol = node.color;
                     node = temp;
+//                }
+                if (nodeCol == BLACK) { // node to be deleted is black
+                    if (temp.color == RED) { // check if child is red
+                        temp.color = BLACK; // then recolor with black
+                    }
+                    else {
+                        deleteCase1 (temp);
+                    }
                 }
             } else {
                 RBNode<K> temp = minvalue(node.right);
@@ -88,6 +101,10 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             }
         }
         return node;
+    }
+
+    private void deleteCase1(RBNode<K> doubleBlack) {
+
     }
 
     private RBNode<K> minvalue(RBNode<K> right) {
@@ -197,7 +214,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     }
 
     public void test (RBNode<K> node) {
-        if (node == null)
+        if (node == null || node.isNullLeaf())
             return;
         System.out.print("val: " + node.value + " ");
         if (node.left != null) {
