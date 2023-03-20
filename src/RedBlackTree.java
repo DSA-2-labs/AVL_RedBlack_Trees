@@ -112,8 +112,16 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             return parent.left;
         }
     }
-    private void deleteCase1(RBNode<K> doubleBlack) {
 
+    // case 1: doubleBlack is now at the root
+    private void deleteCase1(RBNode<K> doubleBlack) {
+        if (doubleBlack.parent == null) {
+            return;
+        }
+        deleteCase2(doubleBlack);
+    }
+
+    private void deleteCase2(RBNode<K> doubleBlack) {
     }
 
     private RBNode<K> minvalue(RBNode<K> right) {
