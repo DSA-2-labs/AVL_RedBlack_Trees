@@ -151,29 +151,29 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     }
 
     private void deleteCase3(RBNode<K> doubleBlack){  //sibling Black , 2 child black
-        RBNode w = getSibling(doubleBlack);
-        w.color = RED;
+        RBNode s = getSibling(doubleBlack);
+        s.color = RED;
         deleteCase1(doubleBlack.parent);
-
     }
     private void deleteCase4(RBNode<K> doubleBlack)
     {
-        RBNode s=getSibling(doubleBlack);
-        s.parent.color=RED;
-        s.color=BLACK;
-        if(doubleBlack.parent.left==doubleBlack)//sibling is right
+        RBNode s = getSibling(doubleBlack);
+        s.parent.color = RED;
+        s.color = BLACK;
+        if(doubleBlack.parent.left == doubleBlack) //sibling is right
         {
                 rotateleft(s);
         }
-        else//sibling is left
+        else //sibling is left
         {
                 rotateright(s);
         }
-        RBNode temp=getSibling(doubleBlack);
-        if((temp.right.isNullLeaf()||temp.right.color==BLACK)&&((temp.left.isNullLeaf()||temp.left.color==BLACK)))//children are black or null
-            deleteCase3(doubleBlack);
-        else
-            deleteCase2(doubleBlack);
+        deleteCase1(doubleBlack);
+//        RBNode temp = getSibling(doubleBlack);
+//        if((temp.right.isNullLeaf()||temp.right.color==BLACK)&&((temp.left.isNullLeaf()||temp.left.color==BLACK)))//children are black or null
+//            deleteCase1(doubleBlack);
+//        else
+//            deleteCase2(doubleBlack);
     }
 
     private RBNode<K> minvalue(RBNode<K> right) {
