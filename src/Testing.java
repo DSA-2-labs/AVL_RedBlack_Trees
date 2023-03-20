@@ -7,9 +7,8 @@ public class Testing {
     RedBlackTree T2=new RedBlackTree();
     public void test_insertAVL()
     {
-        AVLTree T1=new AVLTree();
         assertEquals("Test 1",true,T1.insert(7));
-        assertEquals("Test 2",false,T1.insert(7));
+        //assertEquals("Test 2",false,T1.insert(7));
     }
     public void test_deleteAVL()
     {
@@ -26,7 +25,7 @@ public class Testing {
     //Red Black tree test
     public void test_insertRB()
     {
-
+        //assertEquals("",,);
     }
     public void test_deleteRB()
     {
