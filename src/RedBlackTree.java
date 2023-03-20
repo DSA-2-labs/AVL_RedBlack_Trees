@@ -103,6 +103,15 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         return node;
     }
 
+    private RBNode<K> getSibling (RBNode<K> node) {
+        RBNode<K> parent = node.parent;
+        if (node == parent.left) {
+            return parent.right;
+        }
+        else {
+            return parent.left;
+        }
+    }
     private void deleteCase1(RBNode<K> doubleBlack) {
 
     }
