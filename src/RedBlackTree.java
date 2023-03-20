@@ -243,11 +243,11 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         if(node != null && node != root && node.parent.color == RED ) {
             if (node.parent == node.parent.parent.left) {
                 RBNode<K> uncle = node.parent.parent.right;
-                if (uncle != null && uncle.color == RED){
+                if (uncle.color == RED){
                     node.parent.color = BLACK;
                     uncle.color = BLACK;
                     node.parent.parent.color = RED;
-                    fixInput(node);
+                    fixInput(node.parent.parent);
                 }else{
                     if(node == node.parent.right){ //LR
                         node = node.parent;
@@ -259,11 +259,11 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                 }
             }else{
                 RBNode<K> uncle = node.parent.parent.left;
-                if(uncle != null && uncle.color == RED){
+                if( uncle.color == RED){
                     node.parent.color = BLACK;
                     uncle.color = BLACK;
                     node.parent.parent.color = RED;
-                    fixInput(node);
+                    fixInput(node.parent.parent);
                 }else{
                     if(node == node.parent.left){ //RL
                         node = node.parent;
