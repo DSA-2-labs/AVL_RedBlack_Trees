@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        RedBlackTree t = new RedBlackTree();
+        /*RedBlackTree t = new RedBlackTree();
 //        System.out.println(t.insert(41));
 //        System.out.println(t.insert(41));
 //        System.out.println(t.insert(38));
@@ -20,6 +20,11 @@ public class Main {
         System.out.println(t.insert(12));
         System.out.println(t.delete(1));
         t.test(t.root);
-        System.out.println(t.root.value);
+        System.out.println(t.root.value);*/
+        AVLTree t2=new AVLTree();
+        Testing testcases=new Testing();
+        t2.insert(7);
+        t2.insert(7);
+        testcases.test_insertAVL();
     }
 }

@@ -1,7 +1,7 @@
 public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     AVLNode<K> root;
     int size;
-
+    private boolean deleteFlag;
     AVLTree() {
         root = null;
         size=0;
