@@ -1,7 +1,6 @@
 public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     AVLNode<K> root;
-    int size;
-    private boolean deleteFlag;
+    private int size;
     AVLTree() {
         root = null;
         size=0;
@@ -9,6 +8,9 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
 
     @Override
     public boolean insert(K key) {
+        if(search(key)){
+            return false;
+        }
         root=insertrec(root,key);
         if (root == null)
             return false;
@@ -16,7 +18,7 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         return true;
     }
 
-    private AVLNode<K> insertrec(AVLNode<K> root, K data) {
+    public AVLNode<K> insertrec(AVLNode<K> root,K data){
         if (root == null){
             root = new AVLNode<K>(data);
             return root;
@@ -32,46 +34,40 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     }
 
     private AVLNode<K> applybalance(AVLNode<K> root) {
-        int balance = getbalance(root);
-        if (balance > 1 && getbalance(root.left) >= 0) //LL
+        int balance = balance(root);
+        if (balance > 1 && balance(root.left) >= 0){
             return rightrotate(root);
-        if (balance > 1 && getbalance(root.left) < 0) { //LR
+        }
+        if (balance < -1 && balance(root.right) <= 0){
+            return leftrotate(root);
+        }
+        if (balance > 1 && balance(root.left) < 0){
             root.left = leftrotate(root.left);
             return rightrotate(root);
         }
-        if (balance < -1 && getbalance(root.right) <= 0)//RR
-            return leftrotate(root);
-        if (balance < -1 && getbalance(root.right) > 0) {//RL
+        if (balance < -1 && balance(root.right) > 0){
             root.right = rightrotate(root.right);
             return leftrotate(root);
         }
         return root;
     }
 
-    private AVLNode<K> leftrotate(AVLNode<K> left) {
-        AVLNode<K> right = left.right;
-        AVLNode<K> rightleft = right.left;
-        right.left = left;
-        left.right = rightleft;
-        updateheight(left);
-        updateheight(right);
-        return right;
+    private AVLNode<K> leftrotate(AVLNode<K> root) {
+        AVLNode<K> rchild=root.right;
+        root.right= rchild.left;
+        rchild.left=root;
+        updateheight(root);
+        updateheight(rchild);
+        return rchild;
     }
 
     private AVLNode<K> rightrotate(AVLNode<K> root) {
-        AVLNode<K> left = root.left;
-        AVLNode<K> leftright = left.right;
-        left.right = root;
-        root.left = leftright;
+        AVLNode<K> lchild=root.left;
+        root.left= lchild.right;
+        lchild.right=root;
         updateheight(root);
-        updateheight(left);
-        return left;
-    }
-
-    private int getbalance(AVLNode<K> root) {
-        if (root == null)
-            return 0;
-        return height(root.left) - height(root.right);
+        updateheight(lchild);
+        return lchild;
     }
 
     int height(AVLNode<K> node){
@@ -80,12 +76,22 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         }
         return node.height;
     }
+    private int balance(AVLNode<K> root) {
+        if (root == null){
+            return 0;
+        }
+        return height(root.left) - height(root.right);
+    }
+
     private void updateheight(AVLNode<K> root) {
-        root.height = 1 + Math.max(height(root.left), height(root.right));
+        root.height = Math.max(height(root.left), height(root.right)) + 1;
     }
 
     @Override
     public boolean delete(K key) {
+        if(!search(key)){
+            return false;
+        }
         root=deleterec(root,key);
         if (root == null)
             return false;
@@ -93,48 +99,41 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         return true;
     }
 
-    private AVLNode<K> deleterec(AVLNode<K> root, K key) {
-        if (root == null)
+    public AVLNode<K> deleterec(AVLNode<K> root, K data){
+        if (root == null){
             return root;
-        if (key.compareTo(root.value) < 0)
-            root.left = deleterec(root.left, key);
-        else if (key.compareTo(root.value) > 0)
-            root.right = deleterec(root.right, key);
-        else {
-            if ((root.left == null) || (root.right == null)) {
-                AVLNode<K> temp = null;
-                if (temp == root.left)
-                    temp = root.right;
-                else
-                    temp = root.left;
-                if (temp == null) {
-                    temp = root;
-                    root = null;
-                } else
-                    root = temp;
-            } else {
-                AVLNode<K> temp = minvalue(root.right);
-                root.value = temp.value;
-                root.right = deleterec(root.right, temp.value);
-            }
         }
-        if (root == null)
-            return root;
+        if (data.compareTo(root.value) < 0){
+            root.left = deleterec(root.left, data);
+        }
+        else if (data.compareTo(root.value) > 0){
+            root.right = deleterec(root.right, data);
+        }
+        else{
+            if (root.left == null){
+                return root.right;
+            }
+            else if (root.right == null){
+                return root.left;
+            }
+            root.value = minvalue(root.right);
+            root.right = deleterec(root.right, root.value);
+        }
         updateheight(root);
         return applybalance(root);
     }
 
-    private AVLNode<K> minvalue(AVLNode<K> right) {
+    private K minvalue(AVLNode<K> right) {
         AVLNode<K> current = right;
         while (current.left != null)
             current = current.left;
-        return current;
+        return current.value;
     }
-    private AVLNode<K> maxvalue(AVLNode<K> right) {
+    private K maxvalue(AVLNode<K> right) {
         AVLNode<K> current = right;
         while (current.right != null)
             current = current.right;
-        return current;
+        return current.value;
     }
 
     @Override

@@ -12,6 +12,6 @@ public class AVLNode<K extends Comparable<K>> {
         this.value = value;
         left=null;
         right=null;
-        this.height = 0;
+        this.height = 1;
     }
 }
