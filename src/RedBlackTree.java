@@ -127,9 +127,16 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         RBNode<K> s = getSibling(doubleBlack);
         if (s.color == BLACK) {
             if (s == s.parent.right && s.right.color == RED) { //RR
-                s.right.color = BLACK;
-                s.color = s.parent.color;
-                s.parent.color = BLACK;
+                if (s.parent.color == BLACK) {
+                    s.right.color = BLACK;
+                }
+                else {
+                    if (s.left.color == RED) {
+                        s.color = RED;
+                        s.parent.color = BLACK;
+                        s.right.color = BLACK;
+                    }
+                }
                 rotateleft(s.parent);
             }
             else if (s == s.parent.right && s.left.color == RED) { //RL
@@ -139,9 +146,16 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                 deleteCase2(doubleBlack);
             }
             else if (s == s.parent.left && s.left.color == RED) { //LL
-                s.left.color = BLACK;
-                s.color = s.parent.color;
-                s.parent.color = BLACK;
+                if (s.parent.color == BLACK) {
+                    s.left.color = BLACK;
+                }
+                else {
+                    if (s.right.color == RED) {
+                        s.color = RED;
+                        s.parent.color = BLACK;
+                        s.left.color = BLACK;
+                    }
+                }
                 rotateright(s.parent);
             }
             else if (s == s.parent.left && s.right.color == RED){ //LR
@@ -160,14 +174,13 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     }
 
     private void deleteCase3(RBNode<K> doubleBlack){  //sibling Black , 2 child black
-        RBNode s = getSibling(doubleBlack);
+        RBNode<K> s = getSibling(doubleBlack);
         s.color = RED;
-
         deleteCase1(doubleBlack.parent);
     }
     private void deleteCase4(RBNode<K> doubleBlack)
     {
-        RBNode s = getSibling(doubleBlack);
+        RBNode<K> s = getSibling(doubleBlack);
         s.parent.color = RED;
         s.color = BLACK;
         if(doubleBlack.parent.left == doubleBlack) //sibling is right
