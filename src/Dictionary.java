@@ -25,6 +25,13 @@ public class Dictionary {
         else
             System.out.println("Error! Such word isn't exist");
     }
+    public void search_word(String key)
+    {
+        if(tree.search(key))
+            System.out.println("This word is already exist");
+        else
+            System.out.println("This word isn't exist");
+    }
     public void Batch_Insert(String filepath)
     {
 
