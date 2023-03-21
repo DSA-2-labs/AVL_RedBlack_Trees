@@ -35,4 +35,10 @@ public class RBNode<K extends Comparable<K>> {
     public boolean isNullLeaf () {
         return this.isNull;
     }
+
+    public void setLeaf () {
+        this.isNull = true;
+        this.color = BLACK;
+        this.value = null;
+    }
 }

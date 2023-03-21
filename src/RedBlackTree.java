@@ -64,28 +64,22 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
         int cmp = node.value.compareTo(key);
         if (cmp > 0) {
-            node.left = delete(node.left, key);
+            delete(node.left, key);
         } else if (cmp < 0) {
-            node.right = delete(node.right, key);
+            delete(node.right, key);
         }
         else {
             deleteFlag = true;
             if ((node.left.isNullLeaf()) || (node.right.isNullLeaf())) {
                 RBNode<K> temp = node.right.isNullLeaf() ? node.left : node.right;
-//                if (temp == null) {
-//                    temp = node;
-//                    node = null;
-//                } else {
+                Color nodeCol = node.color;
+                if (temp.isNullLeaf()) {
+                    temp = node;
+                    node.setLeaf();
+                } else {
                     temp.parent = node.parent;
-                    if (node == node.parent.left) {
-                        node.parent.left = temp;
-                    }
-                    else {
-                        node.parent.right = temp;
-                    }
-                    Color nodeCol = node.color;
                     node = temp;
-//                }
+                }
                 if (nodeCol == BLACK) { // node to be deleted is black
                     if (temp.color == RED) { // check if child is red
                         temp.color = BLACK; // then recolor with black
@@ -93,6 +87,9 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                     else {
                         deleteCase1 (temp);
                     }
+                }
+                else {
+                    temp.color = BLACK; // then recolor with black
                 }
             } else {
                 RBNode<K> temp = minvalue(node.right);
@@ -118,6 +115,10 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         if (doubleBlack.parent == null) {
             return;
         }
+        if (doubleBlack.color == RED) {
+            doubleBlack.color = BLACK;
+            return;
+        }
         deleteCase2(doubleBlack);
     }
 
@@ -127,18 +128,26 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         if (s.color == BLACK) {
             if (s == s.parent.right && s.right.color == RED) { //RR
                 s.right.color = BLACK;
-                rotateleft(s);
+                s.color = s.parent.color;
+                s.parent.color = BLACK;
+                rotateleft(s.parent);
             }
             else if (s == s.parent.right && s.left.color == RED) { //RL
-                rotateright(s.left);
+                s.color = RED;
+                s.left.color = BLACK;
+                rotateright(s.left.parent);
                 deleteCase2(doubleBlack);
             }
             else if (s == s.parent.left && s.left.color == RED) { //LL
                 s.left.color = BLACK;
-                rotateright(s);
+                s.color = s.parent.color;
+                s.parent.color = BLACK;
+                rotateright(s.parent);
             }
             else if (s == s.parent.left && s.right.color == RED){ //LR
-                rotateleft(s.right);
+                s.color = RED;
+                s.right.color = BLACK;
+                rotateleft(s.right.parent);
                 deleteCase2(doubleBlack);
             }
             else {
@@ -153,6 +162,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     private void deleteCase3(RBNode<K> doubleBlack){  //sibling Black , 2 child black
         RBNode s = getSibling(doubleBlack);
         s.color = RED;
+
         deleteCase1(doubleBlack.parent);
     }
     private void deleteCase4(RBNode<K> doubleBlack)
@@ -162,25 +172,22 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         s.color = BLACK;
         if(doubleBlack.parent.left == doubleBlack) //sibling is right
         {
-                rotateleft(s);
+                rotateleft(s.parent);
         }
         else //sibling is left
         {
-                rotateright(s);
+                rotateright(s.parent);
         }
         deleteCase1(doubleBlack);
-//        RBNode temp = getSibling(doubleBlack);
-//        if((temp.right.isNullLeaf()||temp.right.color==BLACK)&&((temp.left.isNullLeaf()||temp.left.color==BLACK)))//children are black or null
-//            deleteCase1(doubleBlack);
-//        else
-//            deleteCase2(doubleBlack);
     }
 
-    private RBNode<K> minvalue(RBNode<K> right) {
-        RBNode<K> current = right;
-        while (current.left != null)
-            current = current.left;
-        return current;
+    private RBNode<K> minvalue(RBNode<K> node) {
+        RBNode<K> prev = null;
+        while (node != null && !node.isNullLeaf()) {
+            prev = node;
+            node = node.left;
+        }
+        return prev != null ? prev : node;
     }
 
     @Override
