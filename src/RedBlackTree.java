@@ -51,7 +51,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     @Override
     public boolean delete(K key) {
-        root = delete(root, key);
+        delete(root, key);
         if (deleteFlag)
             size--;
         return deleteFlag;
@@ -97,6 +97,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                 node.right = delete(node.right, temp.value);
             }
         }
+        System.out.println("return: " + node.value);
         return node;
     }
 
@@ -113,9 +114,11 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     // case 1: doubleBlack is now at the root
     private void deleteCase1(RBNode<K> doubleBlack) {
         if (doubleBlack.parent == null) {
+            System.out.println("null case");
             return;
         }
         if (doubleBlack.color == RED) {
+            System.out.println("red case");
             doubleBlack.color = BLACK;
             return;
         }
@@ -127,6 +130,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         RBNode<K> s = getSibling(doubleBlack);
         if (s.color == BLACK) {
             if (s == s.parent.right && s.right.color == RED) { //RR
+                System.out.println("RR");
                 if (s.parent.color == BLACK) {
                     s.right.color = BLACK;
                 }
@@ -140,12 +144,14 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                 rotateleft(s.parent);
             }
             else if (s == s.parent.right && s.left.color == RED) { //RL
+                System.out.println("RL");
                 s.color = RED;
                 s.left.color = BLACK;
                 rotateright(s.left.parent);
                 deleteCase2(doubleBlack);
             }
             else if (s == s.parent.left && s.left.color == RED) { //LL
+                System.out.println("LL");
                 if (s.parent.color == BLACK) {
                     s.left.color = BLACK;
                 }
@@ -157,18 +163,24 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                     }
                 }
                 rotateright(s.parent);
+                System.out.println("************************");
+                test(root);
+                System.out.println("************************");
             }
             else if (s == s.parent.left && s.right.color == RED){ //LR
+                System.out.println("LR");
                 s.color = RED;
                 s.right.color = BLACK;
                 rotateleft(s.right.parent);
                 deleteCase2(doubleBlack);
             }
             else {
+                System.out.println("case3");
                 deleteCase3(doubleBlack);
             }
         }
         else {
+            System.out.println("case4");
             deleteCase4(doubleBlack);
         }
     }
@@ -242,7 +254,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             node.parent.right = x;
         }
         node.parent = x;
-        x.left = node ;
+        x.left = node;
     }
     private  void rotateright(RBNode<K> node){
         RBNode<K> x = node.left;

@@ -73,10 +73,11 @@ public class Main {
         tree.test(tree.root);
         System.out.println(tree.size());
         System.out.println("-----------------------------------------");
-//        System.out.println(tree.delete(20));
-//        tree.test(tree.root);
-//        System.out.println(tree.size());
-//        System.out.println("-----------------------------------------");
+        System.out.println(tree.delete(22));
+        tree.test(tree.root);
+        System.out.println(tree.size());
+        System.out.println("-----------------------------------------");
+        System.out.println("root: " + tree.root.value);
 //        System.out.println(tree.delete(8));
 //        tree.test(tree.root);
 //        System.out.println(tree.size());
