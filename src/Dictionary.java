@@ -3,71 +3,56 @@ import FileReader.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-public class Dictionary <K>{
-    BinarySearchTree tree;
+public class Dictionary <K extends Comparable<K>>{
+    private BinarySearchTree<K> tree;
     public Dictionary(String Tree_Type)
     {
         if(Tree_Type.equalsIgnoreCase("AVL"))
         {
-            tree = new AVLTree();
+            tree = new AVLTree<>();
         }
         else if(Tree_Type.equalsIgnoreCase("RedBlack"))
         {
-            tree = new RedBlackTree();
+            tree = new RedBlackTree<>();
         }
     }
-    public void insert_word(K key)
+    public boolean insert_word(K key)
     {
-        if(tree.insert((Comparable) key))
-            System.out.println("\""+ key+"\"" + "Added Successfully");
-        else
-            System.out.println("Error! Already Exist");
+        return tree.insert(key);
     }
-    public void delete_word(K key)
+    public boolean delete_word(K key)
     {
-        if(tree.delete((Comparable) key))
-            System.out.println("\""+ key+"\"" + "Deleted Successfully");
-        else
-            System.out.println("Error! Such word isn't exist");
+        return tree.delete(key);
     }
-    public void search_word(K key)
+    public boolean search_word(K key)
     {
-        if(tree.search((Comparable) key))
-            System.out.println("This word is already exist");
-        else
-            System.out.println("This word isn't exist");
+        return tree.search(key);
     }
-    public void Batch_Insert(String filepath) throws FileNotFoundException
+    public ArrayList<Boolean> search_multiword(String fname) throws FileNotFoundException
     {
-        ArrayList<K> batch= (ArrayList<K>) FileReader.loadfile(filepath);
-        int countinserted=0;
-        int countnotinserted=0;
-        for (K word:batch)
+        ArrayList<Boolean> result=new ArrayList<>();
+        for (Object word:FileReader.loadfile(fname))
+            result.add(search_word((K)word));
+        return result;
+    }
+    private ArrayList<Boolean> Batch_Insert(String fname) throws FileNotFoundException
+    {
+        ArrayList<Boolean> result=new ArrayList<>();
+        for (Object word:FileReader.loadfile(fname))
         {
-            if(tree.insert((Comparable) word))
-                countinserted++;
-            else
-                countnotinserted++;
+            result.add(insert_word((K)word));
         }
-        System.out.println("Number Of inserted elements = "+countinserted);
-        System.out.println("Number Of already existing elements = "+countnotinserted);
+        return result;
     }
-    public void Batch_Delete(String filepath) throws FileNotFoundException
+    public ArrayList<Boolean> Batch_Delete(String fname) throws FileNotFoundException
     {
-        ArrayList<K> batch= (ArrayList<K>) FileReader.loadfile(filepath);
-        int countdeleted=0;
-        int countnotdeleted=0;
-        for (K word:batch)
+        ArrayList<Boolean> result=new ArrayList<>();
+        for (Object word:FileReader.loadfile(fname))
         {
-            if(tree.insert((Comparable) word))
-                countdeleted++;
-            else
-                countnotdeleted++;
+            result.add(delete_word((K)word));
         }
-        System.out.println("Number Of deleted elements = "+countdeleted);
-        System.out.println("Number Of not existing elements = "+countnotdeleted);
+        return result;
     }
-
     public int DictionarySize()
     {
         return tree.size();
