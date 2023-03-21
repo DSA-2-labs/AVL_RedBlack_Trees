@@ -78,10 +78,22 @@ public class Main {
         System.out.println(tree.size());
         System.out.println("-----------------------------------------");
         System.out.println("root: " + tree.root.value);
-//        System.out.println(tree.delete(8));
-//        tree.test(tree.root);
-//        System.out.println(tree.size());
-//        System.out.println("-----------------------------------------");
+        System.out.println(tree.delete(8));
+        tree.test(tree.root);
+        System.out.println(tree.size());
+        System.out.println("-----------------------------------------");
+        System.out.println(tree.delete(6));
+        tree.test(tree.root);
+        System.out.println(tree.size());
+        System.out.println("-----------------------------------------");
+        System.out.println(tree.delete(2));
+        tree.test(tree.root);
+        System.out.println(tree.size());
+        System.out.println("-----------------------------------------");
+        System.out.println(tree.delete(26));
+        tree.test(tree.root);
+        System.out.println(tree.size());
+        System.out.println("-----------------------------------------");
 
 
 //// Case 2: Deleting a node that has only one child
