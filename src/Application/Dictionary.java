@@ -3,8 +3,11 @@ import Trees.BinarySearchTree;
 import Trees.RedBlackTree;
 import Trees.AVLTree;
 import Application.FileReader.FileReader;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Dictionary <K extends Comparable<K>>{
     private BinarySearchTree<K> tree;
@@ -41,16 +44,20 @@ public class Dictionary <K extends Comparable<K>>{
         }
         return result;
     }
-    public ArrayList<Boolean> Batch_Insert(String fname) throws FileNotFoundException
+    public /*ArrayList<Boolean>*/void Batch_Insert(String fname) throws FileNotFoundException
     {
-        ArrayList<Boolean> result=new ArrayList<>();
-        for (Object word:FileReader.loadfile(fname))
+        //ArrayList<Boolean> result=new ArrayList<>();
+        File file=new File(fname);
+        Scanner sc=new Scanner(file);
+        while (sc.hasNext())
         {
+            String word=sc.nextLine();
             String x= insert_word((K)word) ? "Word inserted successfully!" : "Word already exists!";
-            System.out.println(word+" : "+ x);
-            result.add(insert_word((K)word));
+            System.out.println((K)word+" : "+ x);
+            //result.add(insert_word((K)word));
         }
-        return result;
+        sc.close();
+        //return result;
     }
     public ArrayList<Boolean> Batch_Delete(String fname) throws FileNotFoundException
     {
