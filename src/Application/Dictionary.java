@@ -1,5 +1,10 @@
-import FileReader.*;
+package Application;
 
+
+import Trees.BinarySearchTree;
+import Trees.RedBlackTree;
+import Trees.AVLTree;
+import Application.FileReader.FileReader;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
