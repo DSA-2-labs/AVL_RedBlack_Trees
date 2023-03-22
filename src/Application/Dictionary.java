@@ -1,6 +1,4 @@
 package Application;
-
-
 import Trees.BinarySearchTree;
 import Trees.RedBlackTree;
 import Trees.AVLTree;
@@ -40,7 +38,7 @@ public class Dictionary <K extends Comparable<K>>{
             result.add(search_word((K)word));
         return result;
     }
-    private ArrayList<Boolean> Batch_Insert(String fname) throws FileNotFoundException
+    public ArrayList<Boolean> Batch_Insert(String fname) throws FileNotFoundException
     {
         ArrayList<Boolean> result=new ArrayList<>();
         for (Object word:FileReader.loadfile(fname))

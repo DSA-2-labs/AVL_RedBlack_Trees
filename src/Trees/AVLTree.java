@@ -14,8 +14,6 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
             return false;
         }
         root=insertrec(root,key);
-        if (root == null)
-            return false;
         size++;
         return true;
     }
@@ -95,8 +93,6 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
             return false;
         }
         root=deleterec(root,key);
-        if (root == null)
-            return false;
         size--;
         return true;
     }
