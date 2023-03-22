@@ -100,7 +100,8 @@ public class CLI {
                 }
                 case 8 -> {
                     assert dictionary != null;
-                    System.out.println("Dictionary tree height: " + dictionary.DictHeight());
+                    String x = dictionary.DictHeight()==-1?"Dictionary is empty!":"Dictionary tree height: " + dictionary.DictHeight();
+                    System.out.println(x);
                 }
                 case 9 -> System.exit(0);
                 default -> {
