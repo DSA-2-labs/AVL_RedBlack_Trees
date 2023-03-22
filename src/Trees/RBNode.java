@@ -1,3 +1,5 @@
+package Trees;
+
 import java.awt.*;
 
 import static java.awt.Color.RED;
