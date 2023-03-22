@@ -70,7 +70,7 @@ public class CLI {
                     assert dictionary != null;
                     try {
                         dictionary.search_multiword(fname);
-                    } catch (FileNotFoundException e) {
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
@@ -80,7 +80,7 @@ public class CLI {
                     assert dictionary != null;
                     try {
                         dictionary.Batch_Insert(fname);
-                    } catch (FileNotFoundException e) {
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
@@ -90,7 +90,7 @@ public class CLI {
                     assert dictionary != null;
                     try {
                         dictionary.Batch_Delete(fname);
-                    } catch (FileNotFoundException e) {
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
