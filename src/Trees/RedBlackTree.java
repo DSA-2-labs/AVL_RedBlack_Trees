@@ -242,7 +242,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     public int height(RBNode<K> root) {
         if (root == null || root.isNullLeaf()) {
-            return 0;  // Base case for an empty tree
+            return -1;  // Base case for an empty tree
         } else {
             int leftHeight = height(root.left);
             int rightHeight = height(root.right);
