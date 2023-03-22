@@ -1,7 +1,7 @@
 package Trees;
 
 public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
-    AVLNode<K> root;
+    public AVLNode<K> root;
     private int size;
     public AVLTree() {
         root = null;
@@ -20,7 +20,7 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
         return true;
     }
 
-    public AVLNode<K> insertrec(AVLNode<K> root,K data){
+    public AVLNode<K> insertrec(AVLNode<K> root, K data){
         if (root == null){
             root = new AVLNode<K>(data);
             return root;
