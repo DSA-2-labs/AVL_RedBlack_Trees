@@ -1,35 +1,33 @@
 package Test;
 
 import Trees.RedBlackTree;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class TestRedBlack {
-    private RedBlackTree<Integer> T1=new RedBlackTree();
-    private void insertcases(Integer...objs)
-    {
-        for (Integer object: objs)
+    private RedBlackTree<Integer> T1 = new RedBlackTree();
+
+    private void insertcases(Integer... objs) {
+        for (Integer object : objs)
             T1.insert(object);
     }
+
     @Test
-    @Ignore("Should be fixed")
-    public void test1()
-    {
-        assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
+    public void test1() {
+        assertTrue(T1.size() == 0);
+        insertcases(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
         assertTrue(T1.delete(88));
         assertFalse(T1.search(88));
         assertTrue(T1.delete(19));
         assertFalse(T1.search(19));
         assertFalse(T1.insert(16));
     }
+
     @Test
-    @Ignore("Should be fixed")
-    public void test2()
-    {
-        assertTrue(T1.size()==0);
-        insertcases(7,3,18,10,22,8,11,26,2,6,13);
+    public void test2() {
+        assertTrue(T1.size() == 0);
+        insertcases(7, 3, 18, 10, 22, 8, 11, 26, 2, 6, 13);
+        assertTrue(T1.delete(26));//empty
         assertTrue(T1.delete(13));//7,3,18,10,22,8,11,26,2,6
         assertFalse(T1.search(13));
         assertTrue(T1.delete(18));//7,3,10,22,8,11,26,2,6
@@ -52,100 +50,121 @@ public class TestRedBlack {
         assertFalse(T1.search(2));
         assertTrue(T1.delete(11));//26
         assertFalse(T1.search(11));
-        assertTrue(T1.delete(26));//empty
         assertFalse(T1.search(26));
-        assertTrue(T1.size()==0);
+        assertTrue(T1.size() == 0);
+    }
+
+    @Test
+    public void test3() {
+        assertTrue(T1.size() == 0);
+        insertcases(10, 20, 30, 40, 50);
+        assertEquals(3, T1.height());
+    }
+
+    @Test
+    public void test4() {
+        assertTrue(T1.size() == 0);
+        insertcases(50, 40, 30);
+        assertTrue(T1.size() == 3);
+    }
+
+    @Test
+    public void test5() {
+        assertTrue(T1.size() == 0);
+        insertcases();
+
+    }
+
+    @Test
+    public void test6() {
+        assertTrue(T1.size() == 0);
+        insertcases();
+    }
+
+    @Test
+    public void test7() {
+        assertTrue(T1.size() == 0);
+        insertcases();
+
+    }
+
+    @Test
+    public void test8() {
+        assertTrue(T1.size() == 0);
+        insertcases();
+
+    }
+
+    @Test
+    public void test9() {
+        assertTrue(T1.size() == 0);
+        insertcases();
+
+    }
+
+    @Test
+    public void test10() {
+        assertTrue(T1.size() == 0);
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test3()
+    public void test11()
     {
         assertTrue(T1.size()==0);
-        insertcases(10,20,30,40,50);
-        assertEquals(3,T1.height());
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test4()
+    public void test12()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test5()
+    public void test13()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test6()
+    public void test14()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test7()
+    public void test15()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test8()
+    public void test16()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test9()
+    public void test17()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
     }
     @Test
-    @Ignore("Should be fixed")
-    public void test10()
+    public void test18()
     {
         assertTrue(T1.size()==0);
-        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
-        assertTrue(T1.delete(88));
-        assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
-        assertFalse(T1.search(19));
-        assertFalse(T1.insert(16));
+        insertcases();
+    }
+    @Test
+    public void test19()
+    {
+        assertTrue(T1.size()==0);
+        insertcases();
+    }
+    @Test
+    public void test20()
+    {
+        assertTrue(T1.size()==0);
+        insertcases();
     }
 }
