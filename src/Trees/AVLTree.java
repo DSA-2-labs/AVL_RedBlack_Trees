@@ -158,6 +158,9 @@ public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
 
     @Override
     public int height() {
-        return root.height;
+        if(root==null)
+            return 0;
+        else
+            return root.height;
     }
 }

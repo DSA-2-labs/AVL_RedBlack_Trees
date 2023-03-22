@@ -34,8 +34,11 @@ public class Dictionary <K extends Comparable<K>>{
     public ArrayList<Boolean> search_multiword(String fname) throws FileNotFoundException
     {
         ArrayList<Boolean> result=new ArrayList<>();
-        for (Object word:FileReader.loadfile(fname))
+        for (Object word:FileReader.loadfile(fname)){
+            String x= search_word((K)word) ? "Found" : "Not Found";
+            System.out.println(word+" : "+ x);
             result.add(search_word((K)word));
+        }
         return result;
     }
     public ArrayList<Boolean> Batch_Insert(String fname) throws FileNotFoundException
@@ -43,6 +46,8 @@ public class Dictionary <K extends Comparable<K>>{
         ArrayList<Boolean> result=new ArrayList<>();
         for (Object word:FileReader.loadfile(fname))
         {
+            String x= insert_word((K)word) ? "Word inserted successfully!" : "Word already exists!";
+            System.out.println(word+" : "+ x);
             result.add(insert_word((K)word));
         }
         return result;
@@ -52,6 +57,8 @@ public class Dictionary <K extends Comparable<K>>{
         ArrayList<Boolean> result=new ArrayList<>();
         for (Object word:FileReader.loadfile(fname))
         {
+            String x= delete_word((K)word) ? "Word deleted successfully!" : "Word doesn't exist!";
+            System.out.println(word+" : "+ x);
             result.add(delete_word((K)word));
         }
         return result;

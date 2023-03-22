@@ -2,11 +2,6 @@ package Interface;
 
 
 import Application.*;
-
-import Trees.AVLTree;
-import Trees.BinarySearchTree;
-import Trees.RedBlackTree;
-
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
@@ -47,34 +42,34 @@ public class CLI {
                     String word = sc.next();
                     assert dictionary != null;
                     if (dictionary.insert_word(word))
-                        System.out.println("Word inserted successfully!");
+                        System.out.println(word + " : " + "Word inserted successfully!");
                     else
-                        System.out.println("Word already exists!");
+                        System.out.println(word + " : " +"Word already exists!");
                 }
                 case 2 -> {
                     System.out.println("Please enter the word:");
                     String word = sc.next();
                     assert dictionary != null;
                     if (dictionary.delete_word(word))
-                        System.out.println("Word deleted successfully!");
+                        System.out.println(word + " : " +"Word deleted successfully!");
                     else
-                        System.out.println("Word does not exist!");
+                        System.out.println(word + " : " +"Word does not exist!");
                 }
                 case 3 -> {
                     System.out.println("Please enter the word:");
                     String word = sc.next();
                     assert dictionary != null;
                     if (dictionary.search_word(word))
-                        System.out.println("Word found!");
+                        System.out.println(word + " : " +"Word found!");
                     else
-                        System.out.println("Word not found!");
+                        System.out.println(word + " : " +"Word not found!");
                 }
                 case 4 -> {
                     System.out.println("Please enter the file name:");
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        System.out.println(dictionary.search_multiword(fname));
+                        dictionary.search_multiword(fname);
                     } catch (FileNotFoundException e) {
                         System.out.println("File not found!");
                     }
@@ -84,7 +79,7 @@ public class CLI {
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        System.out.println(dictionary.Batch_Insert(fname));
+                        dictionary.Batch_Insert(fname);
                     } catch (FileNotFoundException e) {
                         System.out.println("File not found!");
                     }
@@ -94,7 +89,7 @@ public class CLI {
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        System.out.println(dictionary.Batch_Delete(fname));
+                        dictionary.Batch_Delete(fname);
                     } catch (FileNotFoundException e) {
                         System.out.println("File not found!");
                     }
