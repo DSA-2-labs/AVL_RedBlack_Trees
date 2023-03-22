@@ -208,7 +208,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     @Override
     public boolean search(K key) {
         RBNode<K> temp = root;
-        while(temp != null)
+        while(temp != null && !temp.isNullLeaf())
         {
             int cmp = temp.value.compareTo(key);
             if(cmp == 0)
