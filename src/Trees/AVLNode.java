@@ -1,3 +1,5 @@
+package Trees;
+
 public class AVLNode<K extends Comparable<K>> {
     public K value;
     public AVLNode<K> left;

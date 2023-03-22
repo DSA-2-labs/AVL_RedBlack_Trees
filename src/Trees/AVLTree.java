@@ -1,7 +1,9 @@
+package Trees;
+
 public class AVLTree<K extends Comparable<K>> implements BinarySearchTree<K> {
     AVLNode<K> root;
     private int size;
-    AVLTree() {
+    public AVLTree() {
         root = null;
         size=0;
     }
