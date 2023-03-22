@@ -6,7 +6,7 @@ import static java.awt.Color.*;
 
 public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K> {
 
-    RBNode<K> root;
+    public RBNode<K> root;
     private int size;
     private boolean deleteFlag = true;
 
@@ -228,7 +228,17 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     @Override
     public int height() {
-        return 0;
+        return height(root);
+    }
+
+    public int height(RBNode<K> root) {
+        if (root == null || root.isNullLeaf()) {
+            return 0;  // Base case for an empty tree
+        } else {
+            int leftHeight = height(root.left);
+            int rightHeight = height(root.right);
+            return 1 + Math.max(leftHeight, rightHeight);
+        }
     }
 
     private void rotateleft(RBNode<K> node){
@@ -299,24 +309,4 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         }
         root.color = BLACK;
     }
-
-    public void test (RBNode<K> node) {
-        if (node == null || node.isNullLeaf())
-            return;
-        System.out.print("val: " + node.value + " ");
-        if (node.left != null) {
-            System.out.print("left: " + node.left.value + " ");
-        }
-        if (node.right != null) {
-            System.out.print("right: " + node.right.value + " ");
-        }
-        if (node.parent != null) {
-            System.out.print("parent: " + node.parent.value + " ");
-        }
-
-        System.out.println(node.color);
-        test(node.left);
-        test(node.right);
-    }
-
 }
