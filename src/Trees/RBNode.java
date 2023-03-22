@@ -11,7 +11,6 @@ public class RBNode<K extends Comparable<K>> {
     public RBNode<K> left;
     public RBNode<K> right;
     private boolean isNull;
-    public int height;
     public Color color;
     public RBNode parent;
 
@@ -20,7 +19,6 @@ public class RBNode<K extends Comparable<K>> {
         this.value = value;
         this.left = createNullLeaf();
         this.right = createNullLeaf();
-        this.height = 0;
         this.color = RED;
     }
 
