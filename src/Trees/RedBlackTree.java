@@ -207,18 +207,21 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
 
     @Override
     public boolean search(K key) {
-        RBNode<K> temp = root;
-        while(temp != null && !temp.isNullLeaf())
-        {
-            int cmp = temp.value.compareTo(key);
-            if(cmp == 0)
-                return true;
-            else if(cmp > 0)
-                temp = temp.left;
-            else
-                temp = temp.right;
+        return search(root, key);
+    }
+
+    private boolean search(RBNode<K> root, K key) {
+        if (root == null || root.isNullLeaf()) {
+            return false;
         }
-        return false;
+        int cmp = root.value.compareTo(key);
+        if (cmp == 0) {
+            return true;  // Base case for a root node that contains the key
+        } else if (cmp > 0) {
+            return search(root.left, key);  // Recursively search in the left subtree
+        } else {
+            return search(root.right, key);  // Recursively search in the right subtree
+        }
     }
 
     @Override
