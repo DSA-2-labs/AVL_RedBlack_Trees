@@ -56,7 +56,6 @@ public class TestAVL {
         assertFalse(T1.search(11));
         assertTrue(T1.delete(26));//empty
         assertFalse(T1.search(26));
-
         assertTrue(T1.size()==0);
     }
     @Test
