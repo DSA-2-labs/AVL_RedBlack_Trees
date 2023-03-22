@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CLI {
-    public void i() throws FileNotFoundException {
+    public void i() {
         Dictionary<String> dictionary = null;
         Scanner sc = new Scanner(System.in);
         System.out.println("Welcome to the Dictionary program!");
@@ -73,19 +73,31 @@ public class CLI {
                     System.out.println("Please enter the file name:");
                     String fname = sc.next();
                     assert dictionary != null;
-                    System.out.println(dictionary.search_multiword(fname));
+                    try {
+                        System.out.println(dictionary.search_multiword(fname));
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found!");
+                    }
                 }
                 case 5 -> {
                     System.out.println("Please enter the file name:");
                     String fname = sc.next();
                     assert dictionary != null;
-                    System.out.println(dictionary.Batch_Insert(fname));
+                    try {
+                        System.out.println(dictionary.Batch_Insert(fname));
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found!");
+                    }
                 }
                 case 6 -> {
                     System.out.println("Please enter the file name:");
                     String fname = sc.next();
                     assert dictionary != null;
-                    System.out.println(dictionary.Batch_Delete(fname));
+                    try {
+                        System.out.println(dictionary.Batch_Delete(fname));
+                    } catch (FileNotFoundException e) {
+                        System.out.println("File not found!");
+                    }
                 }
                 case 7 -> {
                     assert dictionary != null;
