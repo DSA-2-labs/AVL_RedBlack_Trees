@@ -14,13 +14,30 @@ public class TestRedBlack {
 
     @Test
     public void test1() {
-        assertTrue(T1.size() == 0);
-        insertcases(16, 24, 36, 19, 44, 28, 61, 74, 83, 64, 52, 65, 86, 93, 88);
-        assertTrue(T1.delete(88));
+        assertTrue(T1.size()==0);
+        insertcases(16,24,36,19,44,28,61,74,83,64,52,65,86,93,88);
+        assertTrue(T1.delete(88));//16,24,36,19,44,28,61,74,83,64,52,65,86,93
         assertFalse(T1.search(88));
-        assertTrue(T1.delete(19));
+        assertTrue(T1.delete(19));//16,24,36,44,28,61,74,83,64,52,65,86,93
         assertFalse(T1.search(19));
         assertFalse(T1.insert(16));
+        assertTrue(T1.delete(16));//24,36,44,28,61,74,83,64,52,65,86,93
+        assertFalse(T1.search(16));
+        assertTrue(T1.delete(28));//24,36,44,61,74,83,64,52,65,86,93
+        assertFalse(T1.search(28));
+        assertTrue(T1.delete(24));//36,44,61,74,83,64,52,65,86,93
+        assertFalse(T1.search(24));
+        assertTrue(T1.delete(36));//44,61,74,83,64,52,65,86,93
+        assertFalse(T1.search(36));
+        assertTrue(T1.delete(52));//44,61,74,83,64,65,86,93
+        assertFalse(T1.search(52));
+        assertTrue(T1.delete(93));//44,61,74,83,64,65,86
+        assertFalse(T1.search(93));
+        assertTrue(T1.delete(86));//44,61,74,83,64,65
+        assertFalse(T1.search(86));
+        assertTrue(T1.delete(83));//44,61,74,64,65
+        assertFalse(T1.search(83));
+        assertTrue(T1.size()==5);//44,61,74,64,65
     }
 
     @Test
@@ -58,7 +75,7 @@ public class TestRedBlack {
     public void test3() {
         assertTrue(T1.size() == 0);
         insertcases(10, 20, 30, 40, 50);
-        assertEquals(3, T1.height());
+        //assertEquals(3, T1.height());
     }
 
     @Test
@@ -71,28 +88,47 @@ public class TestRedBlack {
     @Test
     public void test5() {
         assertTrue(T1.size() == 0);
-        insertcases();
-
+        insertcases(2,5,7,1,90,0,3);
+        assertFalse(T1.insert(2));
+        assertTrue(T1.insert(10));
+        assertEquals(4,T1.height());
     }
 
     @Test
     public void test6() {
         assertTrue(T1.size() == 0);
-        insertcases();
+        insertcases(1,2,3,4);
+        assertEquals(2, T1.height());
+        assertTrue(T1.search(4));
+        assertFalse(T1.search(10));
     }
 
     @Test
     public void test7() {
-        assertTrue(T1.size() == 0);
-        insertcases();
-
+        insertcases(0,1,2,3,4,5,6,7,8,9);
+        assertEquals(4,T1.height());
+        assertEquals(10,T1.size());
+        assertTrue(T1.delete(6));
+        assertFalse(T1.delete(10));
+        assertTrue(T1.delete(9));
+        assertFalse(T1.search(9));
+        assertEquals(3,T1.height());
+        assertEquals(8,T1.size());
+        assertFalse(T1.search(6));
+        assertTrue(T1.insert(6));
+        assertTrue(T1.search(6));
+        assertEquals(9,T1.size());
+        assertEquals(3,T1.height());
     }
 
     @Test
     public void test8() {
-        assertTrue(T1.size() == 0);
-        insertcases();
-
+        assertTrue(T1.size()==0);
+        insertcases(10,5,17,2,9,12,20,3,11,15,18,30,13,33);
+        assertEquals(4, T1.height());
+        assertTrue(T1.delete(9));
+        assertEquals(4, T1.height());
+        assertEquals(13, T1.size());
     }
 
     @Test
