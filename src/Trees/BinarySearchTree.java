@@ -1,3 +1,5 @@
+package Trees;
+
 public interface BinarySearchTree<K extends Comparable<K>> {
 
     /**
