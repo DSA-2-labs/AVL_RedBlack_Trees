@@ -1,3 +1,5 @@
+package Trees;
+
 import java.awt.*;
 
 import static java.awt.Color.*;
@@ -8,7 +10,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
     private int size;
     private boolean deleteFlag = true;
 
-    RedBlackTree() {
+    public RedBlackTree() {
         this.size = 0;
         this.root = null;
     }
@@ -185,11 +187,11 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
         s.color = BLACK;
         if(doubleBlack.parent.left == doubleBlack) //sibling is right
         {
-                rotateleft(s.parent);
+            rotateleft(s.parent);
         }
         else //sibling is left
         {
-                rotateright(s.parent);
+            rotateright(s.parent);
         }
         deleteCase1(doubleBlack);
     }
