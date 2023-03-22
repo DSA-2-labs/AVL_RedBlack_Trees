@@ -75,7 +75,7 @@ public class TestRedBlack {
     public void test3() {
         assertTrue(T1.size() == 0);
         insertcases(10, 20, 30, 40, 50);
-        //assertEquals(3, T1.height());
+        assertEquals(2, T1.height());
     }
 
     @Test
@@ -133,74 +133,58 @@ public class TestRedBlack {
 
     @Test
     public void test9() {
-        assertTrue(T1.size() == 0);
-        insertcases();
-
+        assertEquals(0, T1.size());
+        insertcases(1,2,3,4,5,6,7,8,9,22,20,18);
+        assertFalse(T1.search(80));
+        assertEquals(12,T1.size());
     }
 
     @Test
     public void test10() {
-        assertTrue(T1.size() == 0);
-        insertcases();
+        assertEquals(0, T1.size());
+        assertEquals(-1,T1.height());
+        assertTrue(T1.insert(7));
+        assertEquals(0,T1.height());
+        insertcases(9,8,4,-11);
+        assertEquals(5,T1.size());
     }
     @Test
     public void test11()
     {
-        assertTrue(T1.size()==0);
-        insertcases();
+        assertEquals(0, T1.size());
+        insertcases(5,2,7,1,4,6,9,3,16);
+        assertEquals(3,T1.height());
+        assertTrue(T1.insert(15));
+        assertEquals(3, T1.height());
+        assertTrue(T1.search(7));
+        assertTrue(T1.delete(7));
+        assertFalse(T1.search(7));
     }
     @Test
     public void test12()
     {
-        assertTrue(T1.size()==0);
-        insertcases();
+        assertEquals(0, T1.size());
+        insertcases(100,1000,2,33333,4,0);
     }
     @Test
     public void test13()
     {
-        assertTrue(T1.size()==0);
-        insertcases();
+        assertEquals(0, T1.size());
+        insertcases(99,5,3,-1);
     }
     @Test
     public void test14()
     {
-        assertTrue(T1.size()==0);
-        insertcases();
+        assertEquals(0, T1.size());
+        insertcases(1,1,1);
+        assertEquals(1,T1.size());
+        assertEquals(1,T1.height());
     }
     @Test
     public void test15()
     {
-        assertTrue(T1.size()==0);
-        insertcases();
+        assertEquals(0, T1.size());
+        insertcases(10,20,7,5,8);
     }
-    @Test
-    public void test16()
-    {
-        assertTrue(T1.size()==0);
-        insertcases();
-    }
-    @Test
-    public void test17()
-    {
-        assertTrue(T1.size()==0);
-        insertcases();
-    }
-    @Test
-    public void test18()
-    {
-        assertTrue(T1.size()==0);
-        insertcases();
-    }
-    @Test
-    public void test19()
-    {
-        assertTrue(T1.size()==0);
-        insertcases();
-    }
-    @Test
-    public void test20()
-    {
-        assertTrue(T1.size()==0);
-        insertcases();
-    }
+
 }
