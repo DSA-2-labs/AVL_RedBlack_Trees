@@ -34,41 +34,40 @@ public class Dictionary <K extends Comparable<K>>{
     {
         return tree.search(key);
     }
-    public ArrayList<Boolean> search_multiword(String fname) throws FileNotFoundException
+    public long search_multiword(String fname) throws FileNotFoundException
     {
-        ArrayList<Boolean> result=new ArrayList<>();
+        long startTime=0,endTime=0;
+        startTime=System.nanoTime();
         for (Object word:FileReader.loadfile(fname)){
             String x= search_word((K)word) ? "Found" : "Not Found";
             System.out.println(word+" : "+ x);
-            result.add(search_word((K)word));
+
         }
-        return result;
+        endTime=System.nanoTime()-startTime;
+        return endTime;
     }
-    public /*ArrayList<Boolean>*/void Batch_Insert(String fname) throws FileNotFoundException
+    public long Batch_Insert(String fname) throws FileNotFoundException
     {
-        //ArrayList<Boolean> result=new ArrayList<>();
-        File file=new File(fname);
-        Scanner sc=new Scanner(file);
-        while (sc.hasNext())
-        {
-            String word=sc.nextLine();
+        long startTime=0,endTime=0;
+        startTime=System.nanoTime();
+        for (Object word:FileReader.loadfile(fname)){
             String x= insert_word((K)word) ? "Word inserted successfully!" : "Word already exists!";
             System.out.println((K)word+" : "+ x);
-            //result.add(insert_word((K)word));
         }
-        sc.close();
-        //return result;
+        endTime=System.nanoTime()-startTime;
+        return endTime;
     }
-    public ArrayList<Boolean> Batch_Delete(String fname) throws FileNotFoundException
+    public long Batch_Delete(String fname) throws FileNotFoundException
     {
-        ArrayList<Boolean> result=new ArrayList<>();
-        for (Object word:FileReader.loadfile(fname))
-        {
+        long startTime=0,endTime=0;
+        startTime=System.nanoTime();
+        for (Object word:FileReader.loadfile(fname)){
             String x= delete_word((K)word) ? "Word deleted successfully!" : "Word doesn't exist!";
             System.out.println(word+" : "+ x);
-            result.add(delete_word((K)word));
+
         }
-        return result;
+        endTime=System.nanoTime()-startTime;
+        return endTime;
     }
     public int DictionarySize()
     {
