@@ -1,22 +1,21 @@
 package Application.FileReader;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class FileReader {
 
-    public static ArrayList<Object> loadfile(String fname) throws FileNotFoundException
-    {
-        File file=new File(fname);
-        Scanner sc=new Scanner(file);
-        ArrayList<Object> list=new ArrayList<>();
-        while (sc.hasNext())
-        {
-            list.add(sc.nextLine());
+    public static ArrayList<Object> loadfile(String fname) {
+        ArrayList<Object> list = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new java.io.FileReader(fname))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                list.add(line);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        sc.close();
         return list;
     }
 }

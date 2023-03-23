@@ -75,11 +75,17 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             if ((node.left.isNullLeaf()) || (node.right.isNullLeaf())) {
                 RBNode<K> temp = node.right.isNullLeaf() ? node.left : node.right;
                 Color nodeCol = node.color;
+                temp.parent = node.parent;
                 if (temp.isNullLeaf()) {
-                    temp = node;
-                    node.setLeaf();
+                    if (node.parent == null)
+                        root = temp;
+                    else if (node == node.parent.right)
+                        node.parent.right = temp;
+                    else
+                        node.parent.left = temp;
+//                    temp = node;
+//                    node.setLeaf();
                 } else {
-                    temp.parent = node.parent;
                     if (node.parent == null)
                         root = temp;
                     else if (node == node.parent.right)
@@ -102,7 +108,7 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
             } else {
                 RBNode<K> temp = minvalue(node.right);
                 node.value = temp.value;
-                node.right = delete(node.right, temp.value);
+                delete(node.right, temp.value);
             }
         }
         return node;
