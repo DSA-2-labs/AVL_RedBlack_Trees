@@ -3,13 +3,9 @@ package Interface;
 
 import Application.*;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CLI {
-    ArrayList<Long> insertTime=new ArrayList();
-    ArrayList<Long> deleteTime=new ArrayList();
-    ArrayList<Long> searchTime=new ArrayList();
     public void i() {
         Dictionary<String> dictionary = null;
         Scanner sc = new Scanner(System.in);
@@ -73,8 +69,8 @@ public class CLI {
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        searchTime.add(dictionary.search_multiword(fname));
-                    } catch (FileNotFoundException e) {
+                        dictionary.search_multiword(fname);
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
@@ -83,8 +79,8 @@ public class CLI {
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        insertTime.add(dictionary.Batch_Insert(fname));
-                    } catch (FileNotFoundException e) {
+                        dictionary.Batch_Insert(fname);
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
@@ -93,8 +89,8 @@ public class CLI {
                     String fname = sc.next();
                     assert dictionary != null;
                     try {
-                        deleteTime.add(dictionary.Batch_Delete(fname));
-                    } catch (FileNotFoundException e) {
+                        dictionary.Batch_Delete(fname);
+                    } catch (RuntimeException e) {
                         System.out.println("File not found!");
                     }
                 }
@@ -107,23 +103,7 @@ public class CLI {
                     String x = dictionary.DictHeight()==-1?"Dictionary is empty!":"Dictionary tree height: " + dictionary.DictHeight();
                     System.out.println(x);
                 }
-                case 9 ->
-                {
-                    long sumins=0,sumdel=0,sumsearch=0;
-                    for (Long l:insertTime)
-                        sumins+=l;
-                    for (Long l:deleteTime)
-                        sumdel+=l;
-                    for (Long l:searchTime)
-                        sumsearch+=l;
-                    if (insertTime.size()>0)
-                        System.out.println("Insert Time = "+sumins/insertTime.size());
-                    if (deleteTime.size()>0)
-                        System.out.println("Delete Time = "+sumdel/deleteTime.size());
-                    if (searchTime.size()>0)
-                        System.out.println("Insert Time = "+sumsearch/searchTime.size());
-                    System.exit(0);
-                }
+                case 9 -> System.exit(0);
                 default -> {
                     System.out.println("Invalid choice!");
                 }

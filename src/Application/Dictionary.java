@@ -3,10 +3,8 @@ import Trees.BinarySearchTree;
 import Trees.RedBlackTree;
 import Trees.AVLTree;
 import Application.FileReader.FileReader;
-
-
 import java.io.FileNotFoundException;
-
+import java.util.ArrayList;
 
 public class Dictionary <K extends Comparable<K>>{
     private BinarySearchTree<K> tree;
@@ -33,40 +31,40 @@ public class Dictionary <K extends Comparable<K>>{
     {
         return tree.search(key);
     }
-    public long search_multiword(String fname) throws FileNotFoundException
+    public ArrayList<Boolean> search_multiword(String fname) throws RuntimeException
     {
-        long startTime=0,endTime=0;
-        startTime=System.nanoTime();
+        ArrayList<Boolean> result=new ArrayList<>();
         for (Object word:FileReader.loadfile(fname)){
-            String x= search_word((K)word) ? "Found" : "Not Found";
+            boolean found = search_word((K)word);
+            String x= found ? "Found" : "Not Found";
             System.out.println(word+" : "+ x);
-
+            result.add(found);
         }
-        endTime=System.nanoTime()-startTime;
-        return endTime;
+        return result;
     }
-    public long Batch_Insert(String fname) throws FileNotFoundException
+    public ArrayList<Boolean> Batch_Insert(String fname) throws RuntimeException
     {
-        long startTime=0,endTime=0;
-        startTime=System.nanoTime();
-        for (Object word:FileReader.loadfile(fname)){
-            String x= insert_word((K)word) ? "Word inserted successfully!" : "Word already exists!";
-            System.out.println((K)word+" : "+ x);
-        }
-        endTime=System.nanoTime()-startTime;
-        return endTime;
-    }
-    public long Batch_Delete(String fname) throws FileNotFoundException
-    {
-        long startTime=0,endTime=0;
-        startTime=System.nanoTime();
-        for (Object word:FileReader.loadfile(fname)){
-            String x= delete_word((K)word) ? "Word deleted successfully!" : "Word doesn't exist!";
+        ArrayList<Boolean> result=new ArrayList<>();
+        for (Object word:FileReader.loadfile(fname))
+        {
+            boolean added = insert_word((K)word);
+            String x= added ? "Word inserted successfully!" : "Word already exists!";
             System.out.println(word+" : "+ x);
-
+            result.add(added);
         }
-        endTime=System.nanoTime()-startTime;
-        return endTime;
+        return result;
+    }
+    public ArrayList<Boolean> Batch_Delete(String fname) throws RuntimeException
+    {
+        ArrayList<Boolean> result=new ArrayList<>();
+        for (Object word:FileReader.loadfile(fname))
+        {
+            boolean deleted = delete_word((K)word);
+            String x= deleted ? "Word deleted successfully!" : "Word doesn't exist!";
+            System.out.println(word+" : "+ x);
+            result.add(deleted);
+        }
+        return result;
     }
     public int DictionarySize()
     {

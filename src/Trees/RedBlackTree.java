@@ -77,14 +77,14 @@ public class RedBlackTree<K extends Comparable<K>> implements BinarySearchTree<K
                 Color nodeCol = node.color;
                 temp.parent = node.parent;
                 if (temp.isNullLeaf()) {
-                    if (node.parent == null)
-                        root = temp;
+                    if (node.parent == null){}
+//                        root = temp;
                     else if (node == node.parent.right)
                         node.parent.right = temp;
                     else
                         node.parent.left = temp;
 //                    temp = node;
-//                    node.setLeaf();
+                    node.setLeaf();
                 } else {
                     if (node.parent == null)
                         root = temp;
