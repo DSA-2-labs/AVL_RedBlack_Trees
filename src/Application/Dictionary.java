@@ -4,10 +4,9 @@ import Trees.RedBlackTree;
 import Trees.AVLTree;
 import Application.FileReader.FileReader;
 
-import java.io.File;
+
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Dictionary <K extends Comparable<K>>{
     private BinarySearchTree<K> tree;
