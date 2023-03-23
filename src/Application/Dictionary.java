@@ -3,7 +3,6 @@ import Trees.BinarySearchTree;
 import Trees.RedBlackTree;
 import Trees.AVLTree;
 import Application.FileReader.FileReader;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Dictionary <K extends Comparable<K>>{

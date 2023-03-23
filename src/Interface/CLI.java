@@ -1,8 +1,6 @@
 package Interface;
 
-
 import Application.*;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class CLI {
@@ -34,7 +32,8 @@ public class CLI {
             System.out.println("6. Batch delete");
             System.out.println("7. Dictionary size");
             System.out.println("8. Dictionary tree height");
-            System.out.println("9. Exit");
+            System.out.println("9. Return to choose tree type");
+            System.out.println("10. Exit");
             choice = sc.nextInt();
             switch (choice) {
                 case 1 -> {
@@ -103,7 +102,8 @@ public class CLI {
                     String x = dictionary.DictHeight()==-1?"Dictionary is empty!":"Dictionary tree height: " + dictionary.DictHeight();
                     System.out.println(x);
                 }
-                case 9 -> System.exit(0);
+                case 9 -> i();
+                case 10 -> System.exit(0);
                 default -> {
                     System.out.println("Invalid choice!");
                 }
